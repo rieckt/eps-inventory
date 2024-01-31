@@ -4,11 +4,6 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use Milon\Barcode\DNS1D;
 
-use App\Models\Room;
-use App\Models\Inventory;
-use App\Models\Category;
-use App\Models\Floor;
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -25,12 +20,13 @@ Route::get('/', function () {
 });
 
 Route::get('/dashboard', function () {
-    $roomsCount = Room::count();
-    $inventoriesCount = Inventory::count();
-    $categoriesCount = Category::count();
-    $floorsCount = Floor::count();
+    $teachersCount = \App\Models\Teacher::count();
+    $roomsCount = \App\Models\Room::count();
+    $inventoriesCount = \App\Models\Inventory::count();
+    $categoriesCount = \App\Models\Category::count();
+    $floorsCount = \App\Models\Floor::count();
 
-    return view('dashboard', compact('roomsCount', 'inventoriesCount', 'categoriesCount', 'floorsCount'));
+    return view('dashboard', compact('roomsCount', 'inventoriesCount', 'categoriesCount', 'floorsCount', 'teachersCount'));
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 
@@ -44,6 +40,7 @@ Route::resource('inventory', \App\Http\Controllers\InventoryController::class);
 Route::resource('room', \App\Http\Controllers\RoomController::class);
 Route::resource('floor', \App\Http\Controllers\FloorController::class);
 Route::resource('category', \App\Http\Controllers\CategoryController::class);
+Route::resource('teacher', \App\Http\Controllers\TeacherController::class);
 
 Route::get('/barcode/{barcode}', function ($barcode) {
     return DNS1D::getBarcodePNG($barcode, 'C39+',3,33,array(1,1,1), true);

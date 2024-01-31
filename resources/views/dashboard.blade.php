@@ -13,6 +13,7 @@
                 <x-card color="green" route="inventory.index" title="Total Inventories" :count="$inventoriesCount" />
                 <x-card color="red" route="category.index" title="Total Categories" :count="$categoriesCount" />
                 <x-card color="yellow" route="floor.index" title="Total Floors" :count="$floorsCount" />
+                <x-card color="purple" route="teacher.index" title="Total Teacher" :count="$teachersCount" />
 
             </div>
         </div>
