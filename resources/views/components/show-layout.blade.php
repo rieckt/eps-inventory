@@ -21,21 +21,21 @@
                     <div class="flex items-center justify-between mt-4">
                         <div>
                             <a href="{{ route($indexRoute) }}">
-                                <x-primary-button class="ml-3">
+                                <x-primary-button>
                                     {{ __('Back') }}
                                 </x-primary-button>
                             </a>
                         </div>
                         <div class="flex items-center">
-                            <a href="{{ route($editRoute[0], $editRoute[1]) }}">
-                                <x-secondary-button class="ml-3">
+                            <a href="{{ route($editRoute[0], $editRoute[1]) }}" class="mr-4">
+                                <x-secondary-button>
                                     {{ __('Edit') }}
                                 </x-secondary-button>
                             </a>
                             <form action="{{ route($deleteRoute[0], $deleteRoute[1]) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this item?');">
                                 @csrf
                                 @method('DELETE')
-                                <x-danger-button class="ml-3">
+                                <x-danger-button>
                                     {{ __('Delete') }}
                                 </x-danger-button>
                             </form>

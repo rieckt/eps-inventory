@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Category;
 use App\Http\Requests\UpdateCategoryRequest;
 use App\Http\Requests\StoreCategoryRequest;
@@ -11,7 +10,7 @@ class CategoryController extends Controller
 {
     public function index()
     {
-        $categories = Category::all();
+        $categories = Category::paginate();
         return view('category.index', compact('categories'));
     }
 

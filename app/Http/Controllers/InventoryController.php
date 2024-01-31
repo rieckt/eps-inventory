@@ -15,7 +15,7 @@ class InventoryController extends Controller
      */
     public function index(Inventory $inventory)
     {
-        $inventory = Inventory::all();
+        $inventory = Inventory::paginate();
         return view('inventory.index', compact('inventory'));
     }
 
@@ -32,7 +32,7 @@ class InventoryController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(UpdateInventoryRequest $request)
+    public function store(StoreInventoryRequest $request)
     {
         $inventory = Inventory::create($request->validated());
         return redirect()->route('inventory.show', $inventory);

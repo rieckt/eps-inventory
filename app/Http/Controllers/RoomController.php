@@ -11,10 +11,9 @@ class RoomController extends Controller
 {
     public function index()
     {
-        $rooms = Room::with('floor')->get();
+        $rooms = Room::with('floor')->paginate();
         return view('room.index', compact('rooms'));
     }
-
     public function create(Room $room)
     {
         $floors = $this->getFloors();

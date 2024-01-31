@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Room;
 use App\Models\Floor;
 use App\Http\Requests\UpdateFloorRequest;
@@ -12,7 +11,7 @@ class FloorController extends Controller
 
     public function index(Floor $floor)
     {
-        $floors = Floor::all();
+        $floors = Floor::paginate();
         return view('floor.index', compact('floors'));
     }
 

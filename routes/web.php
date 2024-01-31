@@ -4,6 +4,12 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use Milon\Barcode\DNS1D;
 
+use App\Models\Room;
+use App\Models\Inventory;
+use App\Models\Category;
+use App\Models\Floor;
+use App\Models\Teacher;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -20,15 +26,29 @@ Route::get('/', function () {
 });
 
 Route::get('/dashboard', function () {
-    $teachersCount = \App\Models\Teacher::count();
-    $roomsCount = \App\Models\Room::count();
-    $inventoriesCount = \App\Models\Inventory::count();
-    $categoriesCount = \App\Models\Category::count();
-    $floorsCount = \App\Models\Floor::count();
+    $roomsCount = Room::count();
+    $roomsLastUpdated = Room::latest()->first()->updated_at ?? now();
 
-    return view('dashboard', compact('roomsCount', 'inventoriesCount', 'categoriesCount', 'floorsCount', 'teachersCount'));
+    $inventoriesCount = Inventory::count();
+    $inventoriesLastUpdated = Inventory::latest()->first()->updated_at ?? now();
+
+    $categoriesCount = Category::count();
+    $categoriesLastUpdated = Category::latest()->first()->updated_at ?? now();
+
+    $floorsCount = Floor::count();
+    $floorsLastUpdated = Floor::latest()->first()->updated_at ?? now();
+
+    $teachersCount = Teacher::count();
+    $teachersLastUpdated = Teacher::latest()->first()->updated_at ?? now();
+
+    return view('dashboard', compact(
+        'roomsCount', 'roomsLastUpdated',
+        'inventoriesCount', 'inventoriesLastUpdated',
+        'categoriesCount', 'categoriesLastUpdated',
+        'floorsCount', 'floorsLastUpdated',
+        'teachersCount', 'teachersLastUpdated'
+    ));
 })->middleware(['auth', 'verified'])->name('dashboard');
-
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
