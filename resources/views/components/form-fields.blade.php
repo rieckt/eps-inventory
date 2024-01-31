@@ -1,5 +1,5 @@
 @foreach ($fields as $field)
-<div class="px-4 py-2 mb-4 bg-gray-800 rounded-lg">
+<div class="px-4 py-2 mb-4 rounded-lg dark:bg-gray-800">
     <x-input-label for="{{ $field }}" :value="__(ucfirst($field))" class="text-lg font-semibold text-gray-200" />
 
         @if ($field === 'barcode')
@@ -22,8 +22,8 @@
 @endforeach
 
 @foreach ($dropdowns as $name => $dropdown)
-    <div class="px-4 py-2 mb-4 bg-gray-800 rounded-lg">
-        <x-input-label for="{{ $name }}" :value="$dropdown['label']" class="text-lg font-semibold text-gray-200" />
+    <div class="px-4 py-2 mb-4 rounded-lg dark:bg-gray-800">
+        <x-input-label for="{{ $name }}" :value="$dropdown['label']" class="text-lg font-semibold dark:text-gray-200" />
         <x-select-dropdown :options="$dropdown['options']" :name="$name" :selected="$dropdown['selected']" />
         @error($name)
             <p class="text-sm text-red-500">{{ $message }}</p>

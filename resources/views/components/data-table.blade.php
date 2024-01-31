@@ -35,7 +35,7 @@
                 <form action="{{ route($route . '.destroy', $item->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this item?');">
                     @csrf
                     @method('DELETE')
-                    <x-danger-button class="w-full mb-2 bg-red-500 hover:bg-red-700">
+                    <x-danger-button class="w-full mb-2">
                         Delete
                     </x-danger-button>
                 </form>
@@ -43,7 +43,7 @@
 
             <td class="px-6 py-4 whitespace-nowrap">
                 <a href="{{ route($route . '.edit', $item->id) }}">
-                    <x-secondary-button class="w-full mb-2 bg-blue-500 hover:bg-blue-700">
+                    <x-secondary-button class="w-full mb-2">
                         Edit
                     </x-secondary-button>
                 </a>
