@@ -10,62 +10,9 @@
             <div class="overflow-hidden bg-white shadow-sm dark:bg-gray-800 sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
                     <div class="flex justify-center mb-4">
-                        <a href="{{ route('category.create') }}">
-                            <x-create-button>
-                                {{ __('Create') }}
-                            </x-create-button>
-                        </a>
+                        <x-create-button route="category.create" />
                     </div>
-                    <x-table>
-                        <x-slot name="headings">
-                            <th scope="col"
-                                class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
-                                Name
-                            </th>
-                            <th scope="col" class="relative px-6 py-3">
-                                <span class="sr-only">Delete</span>
-                            </th>
-                            <th scope="col" class="relative px-6 py-3">
-                                <span class="sr-only">Edit</span>
-                            </th>
-                        </x-slot>
-
-                        @forelse ($categories as $item)
-                            <tr class="transition-colors duration-200 hover:bg-gray-100 dark:hover:bg-gray-700">
-
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <a href="{{ route('category.show', $item->id) }}">
-                                        <x-secondary-button class="w-full mb-2">
-                                            {{ $item->name }}
-                                        </x-secondary-button>
-                                    </a>
-                                </td>
-
-
-                                <td class="px-6 py-4 text-right whitespace-nowrap">
-                                    <form action="{{ route('category.destroy', $item->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this category?');">
-                                        @csrf
-                                        @method('DELETE')
-                                        <x-danger-button class="w-full mb-2">
-                                            Delete
-                                        </x-danger-button>
-                                    </form>
-                                </td>
-
-                                <td class="px-6 py-4 text-right whitespace-nowrap">
-                                    <a href="{{ route('category.edit', $item->id) }}">
-                                        <x-secondary-button class="w-full mb-2">
-                                            Edit
-                                        </x-secondary-button>
-                                    </a>
-                                </td>
-                            </tr>
-                        @empty
-                            <tr>
-                                <td colspan="3" class="px-6 py-4 text-center">No categories found.</td>
-                            </tr>
-                        @endforelse
-                    </x-table>
+                    <x-data-table :items="$categories" route="category" :columns="['name']" :columnsHeader="['Name']" :buttonColumns="['name']" />
                 </div>
             </div>
         </div>
