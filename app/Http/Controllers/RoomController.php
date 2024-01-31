@@ -6,12 +6,16 @@ use App\Models\Room;
 use App\Models\Floor;
 use App\Http\Requests\StoreRoomRequest;
 use App\Http\Requests\UpdateRoomRequest;
+use Illuminate\Http\Request;
 
 class RoomController extends Controller
 {
-    public function index()
+    public function index(Room $room, Request $request)
     {
-        $rooms = Room::with('floor')->paginate();
+        $search = $request->get('search');
+        $rooms = Room::when($search, function ($query, $search) {
+            return $query->where('name', 'LIKE', "%{$search}%");
+        })->paginate();
         return view('room.index', compact('rooms'));
     }
     public function create(Room $room)

@@ -5,12 +5,17 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Http\Requests\UpdateCategoryRequest;
 use App\Http\Requests\StoreCategoryRequest;
+use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $categories = Category::paginate();
+        $search = $request->get('search');
+        $categories = Category::when($search, function ($query, $search) {
+            return $query->where('name', 'LIKE', "%{$search}%");
+        })->paginate();
+
         return view('category.index', compact('categories'));
     }
 

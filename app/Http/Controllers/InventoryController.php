@@ -7,15 +7,19 @@ use App\Http\Requests\UpdateInventoryRequest;
 use App\Http\Requests\StoreInventoryRequest;
 use App\Models\Room;
 use App\Models\Category;
+use Illuminate\Http\Request;
 
 class InventoryController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index(Inventory $inventory)
+    public function index(Inventory $inventory, Request $request)
     {
-        $inventory = Inventory::paginate();
+        $search = $request->get('search');
+        $inventory = Inventory::when($search, function ($query, $search) {
+            return $query->where('name', 'LIKE', "%{$search}%");
+        })->paginate();
         return view('inventory.index', compact('inventory'));
     }
 

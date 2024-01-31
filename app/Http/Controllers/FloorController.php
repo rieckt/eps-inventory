@@ -5,13 +5,18 @@ namespace App\Http\Controllers;
 use App\Models\Room;
 use App\Models\Floor;
 use App\Http\Requests\UpdateFloorRequest;
+use App\Http\Requests\StoreFloorRequest;
+use Illuminate\Http\Request;
 
 class FloorController extends Controller
 {
 
-    public function index(Floor $floor)
+    public function index(Floor $floor, Request $request)
     {
-        $floors = Floor::paginate();
+        $search = $request->get('search');
+        $floors = Floor::when($search, function ($query, $search) {
+            return $query->where('name', 'LIKE', "%{$search}%");
+        })->paginate();
         return view('floor.index', compact('floors'));
     }
 
@@ -20,7 +25,7 @@ class FloorController extends Controller
         return view('floor.create', compact('floor'));
     }
 
-    public function store(UpdateFloorRequest $request)
+    public function store(StoreFloorRequest $request)
     {
         $floor = Floor::create($request->validated());
         return redirect()->route('floor.show', $floor);

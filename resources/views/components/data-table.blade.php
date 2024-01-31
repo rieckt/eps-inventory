@@ -1,7 +1,9 @@
 @props(['items', 'route', 'columns', 'columnsHeader', 'buttonColumns' => []])
 
 <div class="flex items-center justify-between mb-3">
-    <input type="text" placeholder="Search..." class="px-3 py-2 text-gray-800 bg-gray-100 border rounded dark:bg-gray-800 dark:text-white">
+    <form method="GET" action="{{ route($route . '.index') }}">
+        <input type="text" name="search" placeholder="Search..." class="px-3 py-2 text-gray-800 bg-gray-100 border rounded dark:bg-gray-800 dark:text-white">
+    </form>
     <x-create-button :route="$route . '.create'" />
 </div>
 

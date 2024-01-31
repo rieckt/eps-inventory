@@ -5,15 +5,19 @@ namespace App\Http\Controllers;
 use App\Models\Teacher;
 use App\Http\Requests\StoreTeacherRequest;
 use App\Http\Requests\UpdateTeacherRequest;
+use Illuminate\Http\Request;
 
 class TeacherController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Teacher $teacher, Request $request)
     {
-        $teacher = Teacher::paginate();
+        $search = $request->get('search');
+        $teacher = Teacher::when($search, function ($query, $search) {
+            return $query->where('name', 'LIKE', "%{$search}%");
+        })->paginate();
         return view('teacher.index', compact('teacher'));
     }
 
