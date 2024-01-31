@@ -15,10 +15,10 @@ class RoomController extends Controller
         return view('room.index', compact('rooms'));
     }
 
-    public function create()
+    public function create(Room $room)
     {
         $floors = $this->getFloors();
-        return view('room.create', compact('floors'));
+        return view('room.create', compact('room', 'floors'));
     }
 
     public function store(StoreRoomRequest $request)

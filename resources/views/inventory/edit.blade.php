@@ -9,53 +9,12 @@
         <div class="max-w-xl mx-auto sm:px-6 lg:px-8">
             <div class="overflow-hidden bg-white shadow-sm sm:rounded-lg dark:bg-gray-800">
                 <div class="p-6 bg-white border-b border-gray-200 dark:bg-gray-800 dark:border-gray-700">
-                    <form method="POST" action="{{ route('inventory.update', $inventory->id) }}">
-                        @csrf
-                        @method('PUT')
-
-                        <div class="mb-4">
-                            <x-input-label for="name" :value="__('Name')" />
-                            <x-text-input id="name" class="block w-full mt-1" type="text" name="name"
-                                :value="$inventory->name" required autofocus />
-                        </div>
-
-                        <div class="mb-4">
-                            <x-input-label for="description" :value="__('Description')" />
-                            <x-text-input id="description" class="block w-full mt-1" type="text" name="description"
-                                :value="$inventory->description" required />
-                        </div>
-
-                        <x-select-dropdown label="{{ __('Room') }}" :options="$rooms" name="room_id"
-                            :selected="$inventory->room->id ?? ''" />
-                        <x-select-dropdown label="{{ __('Category') }}" :options="$categories" name="category_id"
-                            :selected="$inventory->category->id ?? ''" />
-
-                        <div class="mb-4">
-                            <x-input-label for="barcode" :value="__('Barcode')" />
-                            <x-text-input id="barcode" class="block w-full mt-1" type="text" name="barcode"
-                                :value="$inventory->barcode" oninput="updateBarcode(this.value)" />
-
-                            <div class="p-6 mt-4 rounded-lg shadow bg-gray-50 dark:bg-gray-700"
-                                style="{{ isset($inventory->barcode) ? '' : 'display: none;' }}" id="barcodeContainer">
-                                <h2 class="mb-4 text-lg font-semibold text-gray-700 dark:text-gray-200">Barcode</h2>
-                                <img id="barcodeImage" class="p-2 border-2 border-gray-300 rounded"
-                                    src="{{ isset($inventory->barcode) ? 'data:image/png;base64,' . DNS1D::getBarcodePNG($inventory->barcode, 'C39+', 3, 33, [1, 1, 1], true) : '' }}"
-                                    alt="barcode" />
-                            </div>
-                        </div>
-
-                        <div class="flex items-center justify-end mt-4">
-                            <x-primary-button class="ml-4">
-                                {{ __('Update') }}
-                            </x-primary-button>
-
-                            <a href="{{ route('inventory.index') }}" class="ml-4">
-                                <x-secondary-button class="ml-3">
-                                    {{ __('Back') }}
-                                </x-secondary-button>
-                            </a>
-                        </div>
-                    </form>
+                    <x-update-form :model="$inventory" :fields="['name', 'description', 'barcode']"
+                        :dropdowns="[
+                            'room_id' => ['label' => __('Room'), 'options' => $rooms, 'selected' => $inventory->room->id ?? ''],
+                            'category_id' => ['label' => __('Category'), 'options' => $categories, 'selected' => $inventory->category->id ?? '']
+                        ]"
+                        route="inventory" />
                 </div>
             </div>
         </div>

@@ -22,11 +22,11 @@ class InventoryController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(Inventory $inventory)
     {
         $rooms = $this->getRooms();
         $categories = $this->getCategories();
-        return view('inventory.create', compact('rooms', 'categories'));
+        return view('inventory.create', compact('rooms', 'categories', 'inventory'));
     }
 
     /**

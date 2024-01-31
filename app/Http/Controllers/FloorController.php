@@ -16,9 +16,9 @@ class FloorController extends Controller
         return view('floor.index', compact('floors'));
     }
 
-    public function create()
+    public function create(Floor $floor)
     {
-        return view('floor.create');
+        return view('floor.create', compact('floor'));
     }
 
     public function store(UpdateFloorRequest $request)
