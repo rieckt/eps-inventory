@@ -25,29 +25,23 @@
                                 :value="$inventory->description" required />
                         </div>
 
-                        <div class="mb-4">
-                            <x-input-label for="room_id" :value="__('Room ID')" />
-                            <x-text-input id="room_id" class="block w-full mt-1" type="text" name="room_id"
-                                :value="$inventory->room_id" required />
-                        </div>
-
-                        <div class="mb-4">
-                            <x-input-label for="category_id" :value="__('Category ID')" />
-                            <x-text-input id="category_id" class="block w-full mt-1" type="text" name="category_id"
-                                :value="$inventory->category_id" required />
-                        </div>
+                        <x-select-dropdown label="{{ __('Room') }}" :options="$rooms" name="room_id"
+                            :selected="$inventory->room->id ?? ''" />
+                        <x-select-dropdown label="{{ __('Category') }}" :options="$categories" name="category_id"
+                            :selected="$inventory->category->id ?? ''" />
 
                         <div class="mb-4">
                             <x-input-label for="barcode" :value="__('Barcode')" />
                             <x-text-input id="barcode" class="block w-full mt-1" type="text" name="barcode"
                                 :value="$inventory->barcode" oninput="updateBarcode(this.value)" />
 
-                                <div class="p-6 mt-4 rounded-lg shadow bg-gray-50 dark:bg-gray-700" style="{{ isset($inventory->barcode) ? '' : 'display: none;' }}" id="barcodeContainer">
-                                    <h2 class="mb-4 text-lg font-semibold text-gray-700 dark:text-gray-200">Barcode</h2>
-                                    <img id="barcodeImage" class="p-2 border-2 border-gray-300 rounded"
-                                        src="{{ isset($inventory->barcode) ? 'data:image/png;base64,' . DNS1D::getBarcodePNG($inventory->barcode, 'C39+', 3, 33, [1, 1, 1], true) : '' }}"
-                                        alt="barcode" />
-                                </div>
+                            <div class="p-6 mt-4 rounded-lg shadow bg-gray-50 dark:bg-gray-700"
+                                style="{{ isset($inventory->barcode) ? '' : 'display: none;' }}" id="barcodeContainer">
+                                <h2 class="mb-4 text-lg font-semibold text-gray-700 dark:text-gray-200">Barcode</h2>
+                                <img id="barcodeImage" class="p-2 border-2 border-gray-300 rounded"
+                                    src="{{ isset($inventory->barcode) ? 'data:image/png;base64,' . DNS1D::getBarcodePNG($inventory->barcode, 'C39+', 3, 33, [1, 1, 1], true) : '' }}"
+                                    alt="barcode" />
+                            </div>
                         </div>
 
                         <div class="flex items-center justify-end mt-4">

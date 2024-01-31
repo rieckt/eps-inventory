@@ -30,17 +30,8 @@
                             <x-input-error :messages="$errors->get('barcode')" class="mt-2" />
                         </div>
 
-                        <div class="mt-4">
-                            <x-input-label for="room_id" :value="__('Room ID')" />
-                            <x-text-input id="room_id" class="block w-full mt-1" type="text" name="room_id" :value="old('room_id')" required autofocus autocomplete="room_id" />
-                            <x-input-error :messages="$errors->get('room_id')" class="mt-2" />
-                        </div>
-
-                        <div class="mt-4">
-                            <x-input-label for="category_id" :value="__('Category ID')" />
-                            <x-text-input id="category_id" class="block w-full mt-1" type="text" name="category_id" :value="old('category_id')" required autofocus autocomplete="category_id" />
-                            <x-input-error :messages="$errors->get('category_id')" class="mt-2" />
-                        </div>
+                        <x-select-dropdown label="{{ __('Room') }}" :options="$rooms" name="room_id" :selected="$inventory->room->id ?? ''" />
+                        <x-select-dropdown label="{{ __('Category') }}" :options="$categories" name="category_id" :selected="$inventory->category->id ?? ''" />
 
                         <div class="flex items-center justify-end mt-4">
                             <a href="{{ route('inventory.index') }}">

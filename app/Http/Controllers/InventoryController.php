@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Inventory;
 use App\Http\Requests\UpdateInventoryRequest;
+use App\Http\Requests\StoreInventoryRequest;
+use App\Models\Room;
+use App\Models\Category;
 
 class InventoryController extends Controller
 {
@@ -22,7 +24,9 @@ class InventoryController extends Controller
      */
     public function create()
     {
-        return view('inventory.create');
+        $rooms = $this->getRooms();
+        $categories = $this->getCategories();
+        return view('inventory.create', compact('rooms', 'categories'));
     }
 
     /**
@@ -47,7 +51,9 @@ class InventoryController extends Controller
      */
     public function edit(Inventory $inventory)
     {
-        return view('inventory.edit', compact('inventory'));
+        $rooms = $this->getRooms();
+        $categories = $this->getCategories();
+        return view('inventory.edit', compact('inventory', 'rooms', 'categories'));
     }
 
     /**
@@ -66,5 +72,19 @@ class InventoryController extends Controller
     {
         $inventory->delete();
         return redirect()->route('inventory.index');
+    }
+
+    private function getRooms()
+    {
+        return Room::all()->map(function ($room) {
+            return ['value' => $room->id, 'label' => $room->name];
+        })->toArray();
+    }
+
+    private function getCategories()
+    {
+        return Category::all()->map(function ($category) {
+            return ['value' => $category->id, 'label' => $category->name];
+        })->toArray();
     }
 }

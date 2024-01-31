@@ -30,4 +30,14 @@ class Inventory extends Model
         'created_at',
         'updated_at',
     ];
+
+    public function room()
+    {
+        return $this->belongsTo(Room::class);
+    }
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
 }

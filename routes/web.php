@@ -30,6 +30,9 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::resource('inventory', \App\Http\Controllers\InventoryController::class);
+Route::resource('room', \App\Http\Controllers\RoomController::class);
+Route::resource('floor', \App\Http\Controllers\FloorController::class);
+Route::resource('category', \App\Http\Controllers\CategoryController::class);
 
 Route::get('/barcode/{barcode}', function ($barcode) {
     return DNS1D::getBarcodePNG($barcode, 'C39+',3,33,array(1,1,1), true);
