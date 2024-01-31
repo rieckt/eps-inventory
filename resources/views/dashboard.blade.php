@@ -7,28 +7,13 @@
 
     <div class="py-12">
         <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
-            <div class="overflow-hidden bg-white shadow-sm dark:bg-gray-800 sm:rounded-lg">
-                <div class="p-6 text-gray-900 dark:text-gray-100">
+            <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
 
-                    <div class="flex flex-col">
-                        <div class="flex flex-col items-center">
-                            <a href="{{ route('inventory.index') }}">
-                                <x-secondary-button class="w-full mb-2">
-                                    {{ __('Inventory') }}
-                                </x-secondary-button>
-                            </a>
-                        </div>
-                    </div>
+                <x-card color="blue" route="room.index" title="Total Rooms" :count="$roomsCount" />
+                <x-card color="green" route="inventory.index" title="Total Inventories" :count="$inventoriesCount" />
+                <x-card color="red" route="category.index" title="Total Categories" :count="$categoriesCount" />
+                <x-card color="yellow" route="floor.index" title="Total Floors" :count="$floorsCount" />
 
-
-                    <div class="flex flex-col">
-                        <div class="flex flex-col items-center">
-                            <p class="text-2xl font-bold">Welcome to Inventory Manager EPS</p>
-                            <p class="text-xl">Please select an option from the menu above</p>
-                        </div>
-                    </div>
-
-                </div>
             </div>
         </div>
     </div>

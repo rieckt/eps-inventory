@@ -4,6 +4,11 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use Milon\Barcode\DNS1D;
 
+use App\Models\Room;
+use App\Models\Inventory;
+use App\Models\Category;
+use App\Models\Floor;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -20,8 +25,14 @@ Route::get('/', function () {
 });
 
 Route::get('/dashboard', function () {
-    return view('dashboard');
+    $roomsCount = Room::count();
+    $inventoriesCount = Inventory::count();
+    $categoriesCount = Category::count();
+    $floorsCount = Floor::count();
+
+    return view('dashboard', compact('roomsCount', 'inventoriesCount', 'categoriesCount', 'floorsCount'));
 })->middleware(['auth', 'verified'])->name('dashboard');
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
