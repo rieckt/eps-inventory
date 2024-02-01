@@ -10,7 +10,6 @@ class Inventory extends Model
     use HasFactory;
 
     protected $table = 'inventory';
-
     protected $perPage = 24;
 
     protected $fillable = [

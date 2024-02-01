@@ -1,15 +1,15 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="text-xl font-semibold leading-tight text-gray-800 dark:text-gray-200">
-            {{ __('Create Teacher') }}
+            {{ __('Status List') }}
         </h2>
     </x-slot>
 
     <div class="py-12">
-        <div class="max-w-xl mx-auto sm:px-6 lg:px-8">
+        <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
             <div class="overflow-hidden bg-white shadow-sm dark:bg-gray-800 sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
-                    <x-create-form :model="$teacher" :fields="['name', 'email']" route="teacher" :order="['name', 'email']" />
+                    <x-data-table :items="$status" route="status" :columns="['name']" :columnsHeader="['Name']" :buttonColumns="['name']" />
                 </div>
             </div>
         </div>

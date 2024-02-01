@@ -32,7 +32,8 @@
                                     {{ __('Edit') }}
                                 </x-secondary-button>
                             </a>
-                            <form action="{{ route($deleteRoute[0], $deleteRoute[1]) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this item?');">
+                            <form action="{{ route($deleteRoute[0], $deleteRoute[1]) }}" method="POST"
+                                onsubmit="return confirm('Are you sure you want to delete this item?');">
                                 @csrf
                                 @method('DELETE')
                                 <x-danger-button>

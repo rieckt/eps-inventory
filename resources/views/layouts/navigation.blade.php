@@ -58,8 +58,13 @@
                             {{ __('Teacher') }}
                         </x-dropdown-link>
 
+                        <x-dropdown-link :href="route('itemStatus.index')">
+                            {{ __('Item Status') }}
+                        </x-dropdown-link>
 
-
+                        <x-dropdown-link :href="route('status.index')">
+                            {{ __('Status') }}
+                        </x-dropdown-link>
                     </x-slot>
                 </x-dropdown>
             </div>

@@ -20,7 +20,7 @@
                             'options' => $categories,
                             'selected' => old('category_id'),
                         ],
-                    ]" route="inventory" />
+                    ]" :order="['name', 'description', 'barcode', 'room_id', 'category_id']" route="inventory" />
                 </div>
             </div>
         </div>

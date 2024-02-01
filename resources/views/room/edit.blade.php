@@ -9,7 +9,7 @@
         <div class="max-w-xl mx-auto sm:px-6 lg:px-8">
             <div class="overflow-hidden bg-white shadow-sm sm:rounded-lg dark:bg-gray-800">
                 <div class="p-6 bg-white border-b border-gray-200 dark:bg-gray-800 dark:border-gray-700">
-                    <x-update-form :model="$room" :fields="['name']" :dropdowns="['floor_id' => ['label' => __('Floor'), 'options' => $floors, 'selected' => $room->floor_id ?? '']]" route="room" />
+                    <x-update-form :model="$room" :fields="['name']" :dropdowns="['floor_id' => ['label' => __('Floor'), 'options' => $floors, 'selected' => $room->floor_id ?? '']]" route="room" :order="['name', 'floor_id']" />
                 </div>
             </div>
         </div>

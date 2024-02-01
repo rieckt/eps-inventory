@@ -7,6 +7,8 @@
         'green' => 'bg-green-500 hover:bg-green-600',
         'yellow' => 'bg-yellow-500 hover:bg-yellow-600',
         'purple' => 'bg-purple-500 hover:bg-purple-600',
+        'pink' => 'bg-pink-500 hover:bg-pink-600',
+        'indigo' => 'bg-indigo-500 hover:bg-indigo-600',
     ];
 @endphp
 

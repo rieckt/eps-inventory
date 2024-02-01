@@ -15,7 +15,7 @@
                             'options' => $floors,
                             'selected' => old('floor_id'),
                         ],
-                    ]" route="room" />
+                    ]" route="room" :order="['name', 'floor_id']" />
                 </div>
             </div>
         </div>

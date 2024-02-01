@@ -69,5 +69,7 @@
 </div>
 
 <div class="mt-3">
-    {{ $items->links() }}
+    @if(method_exists($items, 'links'))
+        {{ $items->links() }}
+    @endif
 </div>

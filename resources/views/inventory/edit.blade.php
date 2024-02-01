@@ -14,7 +14,7 @@
                             'room_id' => ['label' => __('Room'), 'options' => $rooms, 'selected' => $inventory->room->id ?? ''],
                             'category_id' => ['label' => __('Category'), 'options' => $categories, 'selected' => $inventory->category->id ?? '']
                         ]"
-                        route="inventory" />
+                        route="inventory" :order="['name', 'description', 'barcode', 'room_id', 'category_id']" />
                 </div>
             </div>
         </div>
