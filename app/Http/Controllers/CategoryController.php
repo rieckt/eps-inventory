@@ -7,15 +7,19 @@ use App\Http\Requests\UpdateCategoryRequest;
 use App\Http\Requests\StoreCategoryRequest;
 use Illuminate\Http\Request;
 
+use App\Traits\Searchable;
+use App\Traits\FetchesModels;
+
 class CategoryController extends Controller
 {
+    use Searchable;
+    use FetchesModels;
+
     public function index(Request $request)
     {
-        $search = $request->get('search');
-        $categories = Category::when($search, function ($query, $search) {
-            return $query->where('name', 'LIKE', "%{$search}%");
+        $categories = Category::when($request->get('search'), function ($query, $search) {
+            return $this->applySearch($query, $search, 'name');
         })->paginate();
-
         return view('category.index', compact('categories'));
     }
 
@@ -40,7 +44,7 @@ class CategoryController extends Controller
         return view('category.edit', compact('category'));
     }
 
-    function update(UpdateCategoryRequest $request, Category $category)
+    public function update(UpdateCategoryRequest $request, Category $category)
     {
         $category->update($request->validated());
         return redirect()->route('category.show', $category);

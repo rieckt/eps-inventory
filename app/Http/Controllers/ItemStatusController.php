@@ -12,19 +12,21 @@ use App\Models\Teacher;
 use App\Models\Status;
 use App\Models\Inventory;
 
+use App\Traits\Searchable;
+use App\Traits\FetchesModels;
+
 class ItemStatusController extends Controller
 {
+    use Searchable;
+    use FetchesModels;
     /**
      * Display a listing of the resource.
      */
     public function index(Request $request, ItemStatus $itemStatus)
     {
-        $search = $request->get('search');
-        $itemStatus = ItemStatus::with(['room', 'teacher', 'status', 'inventory'])
-            ->when($search, function ($query, $search) {
-                return $query->where('name', 'LIKE', "%{$search}%");
-            })->paginate();
-
+        $itemStatus = ItemStatus::when($request->get('search'), function ($query, $search) {
+            return $this->applySearch($query, $search, 'name');
+        })->paginate();
         return view('itemStatus.index', compact('itemStatus'));
     }
 
@@ -33,13 +35,12 @@ class ItemStatusController extends Controller
      */
     public function create(ItemStatus $itemStatus)
     {
-        $rooms = $this->getRooms();
-        $teachers = $this->getTeachers();
-        $status = $this->getStatus();
-        $inventory = $this->getInventory();
-        return view('itemStatus.create', compact('itemStatus', 'rooms', 'teachers', 'status', 'inventory'));
+        $rooms = $this->getModels(Room::class);
+        $teachers = $this->getModels(Teacher::class);
+        $statuses = $this->getModels(Status::class);
+        $inventories = $this->getModels(Inventory::class);
+        return view('itemStatus.create', compact('itemStatus', 'rooms', 'teachers', 'statuses', 'inventories'));
     }
-
     /**
      * Store a newly created resource in storage.
      */
@@ -62,11 +63,11 @@ class ItemStatusController extends Controller
      */
     public function edit(ItemStatus $itemStatus)
     {
-        $rooms = $this->getRooms();
-        $teachers = $this->getTeachers();
-        $status = $this->getStatus();
-        $inventory = $this->getInventory();
-        return view('itemStatus.edit', compact('itemStatus', 'rooms', 'teachers', 'status', 'inventory'));
+        $rooms = $this->getModels(Room::class);
+        $teachers = $this->getModels(Teacher::class);
+        $statuses = $this->getModels(Status::class);
+        $inventories = $this->getModels(Inventory::class);
+        return view('itemStatus.edit', compact('itemStatus', 'rooms', 'teachers', 'statuses', 'inventories'));
     }
 
     /**
@@ -85,45 +86,5 @@ class ItemStatusController extends Controller
     {
         $itemStatus->delete();
         return redirect()->route('itemStatus.index');
-    }
-
-    private function getRooms()
-    {
-        return Room::select('id', 'name')
-            ->get()
-            ->map(function ($room) {
-                return ['value' => $room->id, 'label' => $room->name];
-            })
-            ->toArray();
-    }
-
-    private function getTeachers()
-    {
-        return Teacher::select('id', 'name')
-            ->get()
-            ->map(function ($teacher) {
-                return ['value' => $teacher->id, 'label' => $teacher->name];
-            })
-            ->toArray();
-    }
-
-    private function getStatus()
-    {
-        return Status::select('id', 'name')
-            ->get()
-            ->map(function ($status) {
-                return ['value' => $status->id, 'label' => $status->name];
-            })
-            ->toArray();
-    }
-
-    private function getInventory()
-    {
-        return Inventory::select('id', 'name')
-            ->get()
-            ->map(function ($inventory) {
-                return ['value' => $inventory->id, 'label' => $inventory->name];
-            })
-            ->toArray();
     }
 }

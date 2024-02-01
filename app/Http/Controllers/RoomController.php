@@ -7,26 +7,33 @@ use App\Models\Floor;
 use App\Http\Requests\StoreRoomRequest;
 use App\Http\Requests\UpdateRoomRequest;
 use Illuminate\Http\Request;
+use App\Traits\Searchable;
+use App\Traits\FetchesModels;
 
 class RoomController extends Controller
 {
+    use Searchable;
+    use FetchesModels;
+
     public function index(Room $room, Request $request)
     {
-        $search = $request->get('search');
-        $rooms = Room::when($search, function ($query, $search) {
-            return $query->where('name', 'LIKE', "%{$search}%");
+        $room = Room::when($request->get('search'), function ($query, $search) {
+            return $this->applySearch($query, $search, 'name');
         })->paginate();
-        return view('room.index', compact('rooms'));
+
+        return view('room.index', compact('room'));
     }
     public function create(Room $room)
     {
-        $floors = $this->getFloors();
+        $floors = $this->getModels(Floor::class, [
+            'labelField' => 'name',
+        ]);
         return view('room.create', compact('room', 'floors'));
     }
 
-    public function store(StoreRoomRequest $request)
+    public function store(StoreRoomRequest $request, Room $room)
     {
-        $room = Room::create($request->validated());
+        $room = $room->create($request->validated());
         return redirect()->route('room.show', $room);
     }
 
@@ -37,7 +44,9 @@ class RoomController extends Controller
 
     public function edit(Room $room)
     {
-        $floors = $this->getFloors();
+        $floors = $this->getModels(Floor::class, [
+            'labelField' => 'name',
+        ]);
         return view('room.edit', compact('room', 'floors'));
     }
 
@@ -51,12 +60,5 @@ class RoomController extends Controller
     {
         $room->delete();
         return redirect()->route('room.index');
-    }
-
-    private function getFloors()
-    {
-        return Floor::all()->map(function ($floor) {
-            return ['value' => $floor->id, 'label' => $floor->name];
-        })->toArray();
     }
 }

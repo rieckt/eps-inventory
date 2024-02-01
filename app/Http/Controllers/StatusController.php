@@ -7,17 +7,21 @@ use App\Models\Status;
 use App\Http\Requests\UpdateStatusRequest;
 use App\Http\Requests\StoreStatusRequest;
 
+use App\Traits\Searchable;
+use App\Models\ItemStatus;
+
 class StatusController extends Controller
 {
+    use Searchable;
     /**
      * Display a listing of the resource.
      */
-    public function index(Status $status, Request $request)
+    public function index(Request $request)
     {
-        $search = $request->get('search');
-        $status = Status::when($search, function ($query, $search) {
-            return $query->where('name', 'LIKE', "%{$search}%");
+        $status = Status::when($request->get('search'), function ($query, $search) {
+            return $this->applySearch($query, $search, 'name');
         })->paginate();
+
         return view('status.index', compact('status'));
     }
 
@@ -43,7 +47,11 @@ class StatusController extends Controller
      */
     public function show(Status $status)
     {
-        return view('status.show', compact('status'));
+        $itemsWithSameStatus = ItemStatus::where('status_id', $status->id)
+            ->with('inventory')
+            ->paginate(10);
+
+        return view('status.show', compact('status', 'itemsWithSameStatus'));
     }
 
     /**

@@ -12,7 +12,7 @@
                     <x-create-form :model="$itemStatus" :fields="['description', 'date', 'time']" :dropdowns="[
                         'inventory_id' => [
                             'label' => __('Item'),
-                            'options' => $inventory,
+                            'options' => $inventories,
                             'selected' => old('inventory_id'),
                         ],
                         'room_id' => [
@@ -27,7 +27,7 @@
                         ],
                         'status_id' => [
                             'label' => __('Status'),
-                            'options' => $status,
+                            'options' => $statuses,
                             'selected' => old('status_id'),
                         ],
                     ]" :order="['inventory_id', 'status_id', 'teacher_id', 'room_id', 'description', 'date', 'time']" route="itemStatus" />

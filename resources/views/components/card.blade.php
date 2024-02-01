@@ -10,23 +10,28 @@
         'pink' => 'bg-pink-500 hover:bg-pink-600',
         'indigo' => 'bg-indigo-500 hover:bg-indigo-600',
     ];
+
+    $colorClass = $colors[$color] ?? $colors['blue'];
 @endphp
 
-<a href="{{ route($route) }}" class="overflow-hidden text-white rounded-lg shadow-lg transform transition-all duration-500 ease-in-out hover:scale-105 hover:bg-opacity-90 {{ $colors[$color] }}" aria-label="{{ $description }}">
+<a href="{{ route($route) }}"
+   class="overflow-hidden text-white rounded-lg shadow-lg transform transition-all duration-500 ease-in-out hover:scale-105 hover:bg-opacity-90 {{ $colorClass }}"
+   aria-label="{{ $description }}"
+   role="button">
     <div class="px-6 py-4">
-        <div class="flex items-center">
-            <i class="{{ $icon }} text-3xl transform transition duration-500 ease-in-out hover:scale-125" title="{{ $description }}"></i>
-            <p class="ml-4 text-lg font-semibold transition duration-500 hover:text-gray-300">
+        <div class="flex items-center mt-2">
+            <i class="{{ $icon }} text-3xl transform transition duration-500 ease-in-out hover:scale-110 hover:text-gray-300" title="{{ $description }}"></i>
+            <h2 class="ml-4 text-xl font-semibold transition duration-500 hover:text-gray-300">
                 {{ $title }}
-            </p>
+            </h2>
         </div>
-        <p class="mt-2 text-2xl font-light">
+        <p class="mt-2 text-xl font-light">
             {{ $count }}
         </p>
         <p class="mt-2 text-sm font-light">
             {{ $description }}
         </p>
-        <p class="mt-2 text-xs text-gray-300">
+        <p class="mt-2 text-sm text-gray-300">
             Last updated: {{ $lastUpdated->diffForHumans() }}
         </p>
     </div>

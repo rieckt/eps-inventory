@@ -38,32 +38,32 @@
                     </x-slot>
 
                     <x-slot name="content">
-                        <x-dropdown-link :href="route('inventory.index')">
-                            {{ __('Inventory') }}
+                        <x-dropdown-link :href="route('inventory.index')" :active="request()->routeIs('inventory.*')">
+                            <i class="fas fa-boxes me-2"></i> {{ __('Inventory') }}
                         </x-dropdown-link>
 
-                        <x-dropdown-link :href="route('floor.index')">
-                            {{ __('Floors') }}
+                        <x-dropdown-link :href="route('room.index')" :active="request()->routeIs('room.*')">
+                            <i class="fas fa-door-open me-2"></i> {{ __('Room') }}
                         </x-dropdown-link>
 
-                        <x-dropdown-link :href="route('room.index')">
-                            {{ __('Room') }}
+                        <x-dropdown-link :href="route('floor.index')" :active="request()->routeIs('floor.*')">
+                            <i class="fas fa-building me-2"></i> {{ __('Floor') }}
                         </x-dropdown-link>
 
-                        <x-dropdown-link :href="route('category.index')">
-                            {{ __('Category') }}
+                        <x-dropdown-link :href="route('category.index')" :active="request()->routeIs('category.*')">
+                            <i class="fas fa-tags me-2"></i> {{ __('Category') }}
                         </x-dropdown-link>
 
-                        <x-dropdown-link :href="route('teacher.index')">
-                            {{ __('Teacher') }}
+                        <x-dropdown-link :href="route('teacher.index')" :active="request()->routeIs('teacher.*')">
+                            <i class="fas fa-chalkboard-teacher me-2"></i> {{ __('Teacher') }}
                         </x-dropdown-link>
 
-                        <x-dropdown-link :href="route('itemStatus.index')">
-                            {{ __('Item Status') }}
+                        <x-dropdown-link :href="route('itemStatus.index')" :active="request()->routeIs('itemStatus.*')">
+                            <i class="fas fa-user-graduate me-2"></i> {{ __('Item Status') }}
                         </x-dropdown-link>
 
-                        <x-dropdown-link :href="route('status.index')">
-                            {{ __('Status') }}
+                        <x-dropdown-link :href="route('status.index')" :active="request()->routeIs('status.*')">
+                            <i class="fas fa-box me-2"></i> {{ __('Status') }}
                         </x-dropdown-link>
                     </x-slot>
                 </x-dropdown>

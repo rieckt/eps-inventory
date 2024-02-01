@@ -6,18 +6,21 @@ use App\Models\Teacher;
 use App\Http\Requests\StoreTeacherRequest;
 use App\Http\Requests\UpdateTeacherRequest;
 use Illuminate\Http\Request;
+use App\Traits\Searchable;
 
 class TeacherController extends Controller
 {
+    use Searchable;
+
     /**
      * Display a listing of the resource.
      */
-    public function index(Teacher $teacher, Request $request)
+    public function index(Request $request)
     {
-        $search = $request->get('search');
-        $teacher = Teacher::when($search, function ($query, $search) {
-            return $query->where('name', 'LIKE', "%{$search}%");
+        $teacher = Teacher::when($request->get('search'), function ($query, $search) {
+            return $this->applySearch($query, $search, 'name');
         })->paginate();
+
         return view('teacher.index', compact('teacher'));
     }
 

@@ -9,27 +9,31 @@ use App\Models\Room;
 use App\Models\Category;
 use Illuminate\Http\Request;
 
+use App\Traits\Searchable;
+use App\Traits\FetchesModels;
+
 class InventoryController extends Controller
 {
+    use Searchable;
+    use FetchesModels;
     /**
      * Display a listing of the resource.
      */
-    public function index(Inventory $inventory, Request $request)
+    public function index(Request $request)
     {
-        $search = $request->get('search');
-        $inventory = Inventory::when($search, function ($query, $search) {
-            return $query->where('name', 'LIKE', "%{$search}%");
-        })->paginate();
+        $inventory = Inventory::with(['room', 'category'])
+            ->when($request->get('search'), function ($query, $search) {
+                return $this->applySearch($query, $search, 'name');
+            })->paginate();
         return view('inventory.index', compact('inventory'));
     }
-
     /**
      * Show the form for creating a new resource.
      */
     public function create(Inventory $inventory)
     {
-        $rooms = $this->getRooms();
-        $categories = $this->getCategories();
+        $rooms = $this->getModels(Room::class);
+        $categories = $this->getModels(Category::class);
         return view('inventory.create', compact('rooms', 'categories', 'inventory'));
     }
 
@@ -47,6 +51,7 @@ class InventoryController extends Controller
      */
     public function show(Inventory $inventory)
     {
+        $inventory->load(['room', 'category']);
         return view('inventory.show', compact('inventory'));
     }
 
@@ -55,8 +60,9 @@ class InventoryController extends Controller
      */
     public function edit(Inventory $inventory)
     {
-        $rooms = $this->getRooms();
-        $categories = $this->getCategories();
+        $inventory->load(['room', 'category']);
+        $rooms = $this->getModels(Room::class);
+        $categories = $this->getModels(Category::class);
         return view('inventory.edit', compact('inventory', 'rooms', 'categories'));
     }
 
@@ -76,19 +82,5 @@ class InventoryController extends Controller
     {
         $inventory->delete();
         return redirect()->route('inventory.index');
-    }
-
-    private function getRooms()
-    {
-        return Room::all()->map(function ($room) {
-            return ['value' => $room->id, 'label' => $room->name];
-        })->toArray();
-    }
-
-    private function getCategories()
-    {
-        return Category::all()->map(function ($category) {
-            return ['value' => $category->id, 'label' => $category->name];
-        })->toArray();
     }
 }

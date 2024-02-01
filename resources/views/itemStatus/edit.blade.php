@@ -28,7 +28,7 @@
                     ]" :dropdowns="[
                         'inventory_id' => [
                             'label' => __('Item'),
-                            'options' => $inventory,
+                            'options' => $inventories,
                             'selected' => old('inventory.id', $itemStatus->inventory_id),
                         ],
                         'room_id' => [
@@ -43,7 +43,7 @@
                         ],
                         'status_id' => [
                             'label' => __('Status'),
-                            'options' => $status,
+                            'options' => $statuses,
                             'selected' => old('status.id', $itemStatus->status_id),
                         ],
                     ]" />

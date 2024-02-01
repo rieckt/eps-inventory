@@ -2,39 +2,41 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Room;
 use App\Models\Floor;
 use App\Http\Requests\UpdateFloorRequest;
 use App\Http\Requests\StoreFloorRequest;
 use Illuminate\Http\Request;
+use App\Traits\Searchable;
+use App\Traits\FetchesModels;
 
 class FloorController extends Controller
 {
+    use Searchable;
+    use FetchesModels;
 
-    public function index(Floor $floor, Request $request)
+    public function index(Request $request)
     {
-        $search = $request->get('search');
-        $floors = Floor::when($search, function ($query, $search) {
-            return $query->where('name', 'LIKE', "%{$search}%");
+        $floors = Floor::when($request->get('search'), function ($query, $search) {
+            return $this->applySearch($query, $search, 'name');
         })->paginate();
         return view('floor.index', compact('floors'));
     }
 
-    public function create(Floor $floor)
+    public function create()
     {
-        return view('floor.create', compact('floor'));
+        return view('floor.create');
     }
 
     public function store(StoreFloorRequest $request)
     {
         $floor = Floor::create($request->validated());
-        return redirect()->route('floor.show', $floor);
+        return redirect()->route('floor.index');
     }
 
-    public function show(Floor $floor, Room $room)
+    public function show(Floor $floor)
     {
-        $roomsOnSameFloor = Room::where('floor_id', $floor->id)->get();
-        return view('floor.show', compact('floor', 'roomsOnSameFloor'));
+        $floor->load('rooms');
+        return view('floor.show', compact('floor'));
     }
 
     public function edit(Floor $floor)
@@ -42,13 +44,13 @@ class FloorController extends Controller
         return view('floor.edit', compact('floor'));
     }
 
-    function update(UpdateFloorRequest $request, Floor $floor)
+    public function update(UpdateFloorRequest $request, Floor $floor)
     {
         $floor->update($request->validated());
-        return redirect()->route('floor.show', $floor);
+        return redirect()->route('floor.index');
     }
 
-    function destroy(Floor $floor)
+    public function destroy(Floor $floor)
     {
         $floor->delete();
         return redirect()->route('floor.index');
