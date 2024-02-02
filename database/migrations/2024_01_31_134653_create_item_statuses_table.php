@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('item_status', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('inventory_id');
+            $table->unsignedBigInteger('item_id');
             $table->date('date');
             $table->time('time');
             $table->string('description');

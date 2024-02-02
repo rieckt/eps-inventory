@@ -18,4 +18,14 @@ class Status extends Model
         'created_at',
         'updated_at',
     ];
+
+    public function itemStatus()
+    {
+        return $this->hasMany(ItemStatus::class);
+    }
+
+    public function item()
+    {
+        return $this->hasManyThrough(Item::class, ItemStatus::class);
+    }
 }

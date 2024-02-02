@@ -8,7 +8,7 @@
     <div class="py-12">
         <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
             <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
-                <x-card color="green" route="inventory.index" title="Inventory" :count="$inventoryCount" :lastUpdated="$inventoryLastUpdated" icon="fas fa-boxes" description="Manage your inventories. Here you can add, edit, or delete inventory items." />
+                <x-card color="green" route="items.index" title="Items" :count="$itemCount" :lastUpdated="$itemLastUpdated" icon="fas fa-boxes" description="Manage your items. Here you can add, edit, or delete items." />
                 <x-card color="blue" route="room.index" title="Rooms" :count="$roomCount" :lastUpdated="$roomLastUpdated" icon="fas fa-door-open" description="Manage your rooms. Here you can add, edit, or delete rooms." />
                 <x-card color="yellow" route="floor.index" title="Floors" :count="$floorCount" :lastUpdated="$floorLastUpdated" icon="fas fa-building" description="Manage your floors. Here you can add, edit, or delete floors." />
                 <x-card color="red" route="category.index" title="Categories" :count="$categoryCount" :lastUpdated="$categoryLastUpdated" icon="fas fa-tags" description="Manage your categories. Here you can add, edit, or delete categories." />

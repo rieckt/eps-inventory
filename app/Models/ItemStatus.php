@@ -14,7 +14,7 @@ class ItemStatus extends Model
 
     protected $fillable = [
         'id',
-        'inventory_id',
+        'item_id',
         'date',
         'time',
         'description',
@@ -33,9 +33,9 @@ class ItemStatus extends Model
         'time' => 'datetime',
     ];
 
-    public function inventory(): BelongsTo
+    public function item(): BelongsTo
     {
-        return $this->belongsTo(Inventory::class);
+        return $this->belongsTo(Item::class);
     }
 
     public function room(): BelongsTo

@@ -10,10 +10,10 @@
             <div class="overflow-hidden bg-white shadow-sm dark:bg-gray-800 sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
                     <x-create-form :model="$itemStatus" :fields="['description', 'date', 'time']" :dropdowns="[
-                        'inventory_id' => [
+                        'item_id' => [
                             'label' => __('Item'),
-                            'options' => $inventories,
-                            'selected' => old('inventory_id'),
+                            'options' => $items,
+                            'selected' => old('item_id'),
                         ],
                         'room_id' => [
                             'label' => __('Room'),
@@ -30,7 +30,7 @@
                             'options' => $statuses,
                             'selected' => old('status_id'),
                         ],
-                    ]" :order="['inventory_id', 'status_id', 'teacher_id', 'room_id', 'description', 'date', 'time']" route="itemStatus" />
+                    ]" :order="['item_id', 'status_id', 'teacher_id', 'room_id', 'description', 'date', 'time']" route="itemStatus" />
                 </div>
             </div>
         </div>

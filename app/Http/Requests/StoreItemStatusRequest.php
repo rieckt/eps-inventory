@@ -15,7 +15,7 @@ class StoreItemStatusRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'inventory_id' => ['required', 'integer', 'exists:inventory,id'],
+            'item_id' => ['required', 'integer', 'exists:items,id'],
             'date' => ['required', 'date'],
             'time' => ['required', 'date_format:H:i'],
             'description' => ['required', 'string'],

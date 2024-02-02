@@ -16,13 +16,13 @@ class UpdateItemStatusRequest extends FormRequest
     {
         return [
             'name' => ['required', 'string', 'max:255'],
-            'inventory_id' => ['required', 'integer', 'exists:inventory,id'],
+            'item_id' => ['required', 'integer', 'exists:items,id'],
             'date' => ['required', 'date'],
             'time' => ['required', 'date_format:H:i'],
             'description' => ['required', 'string'],
-            'room_id' => ['required', 'integer', 'exists:rooms,id'],
-            'lehrer_id' => ['required', 'integer', 'exists:lehrers,id'],
-            'status_id' => ['required', 'integer', 'exists:statuses,id'],
+            'room_id' => ['required', 'integer', 'exists:room,id'],
+            'lehrer_id' => ['required', 'integer', 'exists:teacher,id'],
+            'status_id' => ['required', 'integer', 'exists:status,id'],
         ];
     }
 }

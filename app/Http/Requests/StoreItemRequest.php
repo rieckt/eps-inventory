@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreInventoryRequest extends FormRequest
+class StoreItemRequest extends FormRequest
 {
 
     /**
@@ -16,7 +16,7 @@ class StoreInventoryRequest extends FormRequest
     {
         return [
             'name' => 'required|string|max:255',
-            'category_id' => 'required|exists:category,id',
+            'category_id' => 'required|exists:categories,id',
             'room_id' => 'required|exists:room,id',
         ];
     }

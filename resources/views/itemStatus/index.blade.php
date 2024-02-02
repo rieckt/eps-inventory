@@ -14,7 +14,7 @@
                         $item->time = $item->time->format('g:i a');
                         return $item;
                     })" route="itemStatus" :columns="[
-                        'inventory.name',
+                        'item.name',
                         'status.name',
                         'date',
                         'time',
@@ -22,14 +22,14 @@
                         'room.name',
                         'teacher.name',
                     ]" :columnsHeader="[
-                        'Inventory Name',
+                        'Item Name',
                         'Status',
                         'Date',
                         'Time',
                         'Description',
                         'Room',
                         'Teacher',
-                    ]" :buttonColumns="['inventory.name']" />
+                    ]" :buttonColumns="['item.name']" />
                 </div>
             </div>
         </div>

@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\{
     Room,
-    Inventory,
+    Item,
     Category,
     Floor,
     Teacher,
@@ -20,7 +20,7 @@ class DashboardController extends Controller
     {
         $models = [
             'Room' => Room::class,
-            'Inventory' => Inventory::class,
+            'Item' => Item::class,
             'Category' => Category::class,
             'Floor' => Floor::class,
             'Teacher' => Teacher::class,

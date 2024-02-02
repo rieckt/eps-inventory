@@ -38,7 +38,7 @@
                     </x-slot>
 
                     <x-slot name="content">
-                        <x-dropdown-link :href="route('inventory.index')" :active="request()->routeIs('inventory.*')">
+                        <x-dropdown-link :href="route('items.index')" :active="request()->routeIs('items.*')">
                             <i class="fas fa-boxes me-2"></i> {{ __('Inventory') }}
                         </x-dropdown-link>
 

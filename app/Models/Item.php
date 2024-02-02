@@ -5,11 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Inventory extends Model
+class Item extends Model
 {
     use HasFactory;
-
-    protected $table = 'inventory';
     protected $perPage = 24;
 
     protected $fillable = [
@@ -30,6 +28,10 @@ class Inventory extends Model
         'updated_at',
     ];
 
+    public function itemStatus()
+    {
+        return $this->belongsTo(ItemStatus::class);
+    }
     public function room()
     {
         return $this->belongsTo(Room::class);

@@ -41,12 +41,12 @@
                         </td>
                     @endforeach
                     <td class="px-5 py-5 text-sm bg-white border-b border-gray-200 dark:bg-gray-800 dark:border-gray-700">
-                        <form action="{{ route($route . '.destroy', $item->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this item?');">
+                        <form action="{{ route($route . '.destroy', $item->id) }}" method="POST">
                             @csrf
                             @method('DELETE')
-                            <x-danger-button>
-                                {{ __('Delete') }}
-                            </x-danger-button>
+                                <x-danger-button>
+                                    {{ __('Delete') }}
+                                </x-danger-button>
                         </form>
                     </td>
                     <td class="px-5 py-5 text-sm bg-white border-b border-gray-200 dark:bg-gray-800 dark:border-gray-700">

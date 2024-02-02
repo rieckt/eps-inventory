@@ -13,7 +13,7 @@ use App\Http\Controllers\Auth\{
 };
 use App\Http\Controllers\{
     ProfileController,
-    InventoryController,
+    ItemController,
     RoomController,
     FloorController,
     CategoryController,
@@ -64,7 +64,7 @@ Route::middleware('auth')->group(function () {
 
     // Resource routes
     Route::resources([
-        'inventory' => InventoryController::class,
+        'items' => ItemController::class,
         'room' => RoomController::class,
         'floor' => FloorController::class,
         'category' => CategoryController::class,

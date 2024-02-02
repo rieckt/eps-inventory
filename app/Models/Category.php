@@ -9,6 +9,8 @@ class Category extends Model
 {
     use HasFactory;
 
+    protected $table = 'categories';
+
     protected $perPage = 24;
 
     protected $fillable = [
@@ -21,8 +23,8 @@ class Category extends Model
         'updated_at',
     ];
 
-    public function inventory()
+    public function items()
     {
-        return $this->hasMany(Inventory::class);
+        return $this->hasMany(Item::class);
     }
 }

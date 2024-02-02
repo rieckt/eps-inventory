@@ -6,21 +6,20 @@ use Illuminate\Http\Request;
 use App\Models\Status;
 use App\Http\Requests\UpdateStatusRequest;
 use App\Http\Requests\StoreStatusRequest;
-
-use App\Traits\Searchable;
 use App\Models\ItemStatus;
 
 class StatusController extends Controller
 {
-    use Searchable;
     /**
      * Display a listing of the resource.
      */
     public function index(Request $request)
     {
-        $status = Status::when($request->get('search'), function ($query, $search) {
-            return $this->applySearch($query, $search, 'name');
-        })->paginate();
+        $status = Status::query()
+            ->when($request->get('search'), function ($query, $search) {
+                $query->where('name', 'like', "%{$search}%");
+            })
+            ->paginate();
 
         return view('status.index', compact('status'));
     }
@@ -28,9 +27,9 @@ class StatusController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create(Status $status)
+    public function create()
     {
-        return view('status.create', compact('status'));
+        return view('status.create');
     }
 
     /**
@@ -48,7 +47,7 @@ class StatusController extends Controller
     public function show(Status $status)
     {
         $itemsWithSameStatus = ItemStatus::where('status_id', $status->id)
-            ->with('inventory')
+            ->with('item')
             ->paginate(10);
 
         return view('status.show', compact('status', 'itemsWithSameStatus'));

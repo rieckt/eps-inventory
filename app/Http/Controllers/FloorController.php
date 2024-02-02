@@ -19,40 +19,44 @@ class FloorController extends Controller
         $floors = Floor::when($request->get('search'), function ($query, $search) {
             return $this->applySearch($query, $search, 'name');
         })->paginate();
-        return view('floor.index', compact('floors'));
+
+        return view('floor.index', ['floors' => $floors]);
     }
 
-    public function create()
+    public function create(Floor $floor)
     {
-        return view('floor.create');
+        return view('floor.create', ['floor' => $floor]);
     }
 
     public function store(StoreFloorRequest $request)
     {
-        $floor = Floor::create($request->validated());
-        return redirect()->route('floor.index');
-    }
+        Floor::create($request->validated());
 
+        return redirect()->route('floor.index')->with('success', 'Floor created successfully.');
+    }
     public function show(Floor $floor)
     {
         $floor->load('rooms');
-        return view('floor.show', compact('floor'));
+
+        return view('floor.show', ['floor' => $floor]);
     }
 
     public function edit(Floor $floor)
     {
-        return view('floor.edit', compact('floor'));
+        return view('floor.edit', ['floor' => $floor]);
     }
 
     public function update(UpdateFloorRequest $request, Floor $floor)
     {
         $floor->update($request->validated());
-        return redirect()->route('floor.index');
+
+        return redirect()->route('floor.index')->with('success', 'Floor updated successfully.');
     }
 
     public function destroy(Floor $floor)
     {
         $floor->delete();
-        return redirect()->route('floor.index');
+
+        return redirect()->route('floor.index')->with('success', 'Floor deleted successfully.');
     }
 }

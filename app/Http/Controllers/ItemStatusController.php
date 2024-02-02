@@ -10,7 +10,7 @@ use App\Http\Requests\StoreItemStatusRequest;
 use App\Models\Room;
 use App\Models\Teacher;
 use App\Models\Status;
-use App\Models\Inventory;
+use App\Models\Item;
 
 use App\Traits\Searchable;
 use App\Traits\FetchesModels;
@@ -38,8 +38,8 @@ class ItemStatusController extends Controller
         $rooms = $this->getModels(Room::class);
         $teachers = $this->getModels(Teacher::class);
         $statuses = $this->getModels(Status::class);
-        $inventories = $this->getModels(Inventory::class);
-        return view('itemStatus.create', compact('itemStatus', 'rooms', 'teachers', 'statuses', 'inventories'));
+        $items = $this->getModels(Item::class);
+        return view('itemStatus.create', compact('itemStatus', 'rooms', 'teachers', 'statuses', 'items'));
     }
     /**
      * Store a newly created resource in storage.
@@ -66,8 +66,8 @@ class ItemStatusController extends Controller
         $rooms = $this->getModels(Room::class);
         $teachers = $this->getModels(Teacher::class);
         $statuses = $this->getModels(Status::class);
-        $inventories = $this->getModels(Inventory::class);
-        return view('itemStatus.edit', compact('itemStatus', 'rooms', 'teachers', 'statuses', 'inventories'));
+        $items = $this->getModels(Item::class);
+        return view('itemStatus.edit', compact('itemStatus', 'rooms', 'teachers', 'statuses', 'items'));
     }
 
     /**

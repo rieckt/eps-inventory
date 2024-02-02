@@ -13,12 +13,12 @@
                         'date',
                         'time',
                         'description',
-                        'inventory.id',
+                        'item.id',
                         'room.id',
                         'teacher.id',
                         'status.id',
                     ]" route="itemStatus" :order="[
-                        'inventory_id',
+                        'item_id',
                         'status_id',
                         'teacher_id',
                         'room_id',
@@ -26,10 +26,10 @@
                         'date',
                         'time',
                     ]" :dropdowns="[
-                        'inventory_id' => [
+                        'item_id' => [
                             'label' => __('Item'),
-                            'options' => $inventories,
-                            'selected' => old('inventory.id', $itemStatus->inventory_id),
+                            'options' => $items,
+                            'selected' => old('item.id', $itemStatus->item_id),
                         ],
                         'room_id' => [
                             'label' => __('Room'),
