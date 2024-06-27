@@ -30,7 +30,8 @@
                             'options' => $statuses,
                             'selected' => old('status_id'),
                         ],
-                    ]" :order="['item_id', 'status_id', 'teacher_id', 'room_id', 'description', 'date', 'time']" route="itemStatus" />
+                    ]" :order="['item_id', 'status_id', 'teacher_id', 'room_id', 'description', 'date', 'time']"
+                        route="itemStatus" />
                 </div>
             </div>
         </div>

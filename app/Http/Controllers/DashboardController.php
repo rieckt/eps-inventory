@@ -7,11 +7,12 @@ use App\Models\{
     Item,
     Category,
     Floor,
-    Teacher,
     ItemStatus,
-    Status
+    Status,
+    User,
 };
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 
 class DashboardController extends Controller
@@ -23,8 +24,8 @@ class DashboardController extends Controller
             'Item' => Item::class,
             'Category' => Category::class,
             'Floor' => Floor::class,
-            'Teacher' => Teacher::class,
             'ItemStatus' => ItemStatus::class,
+            'User' => User::class,
             'Status' => Status::class,
         ];
 
@@ -33,6 +34,14 @@ class DashboardController extends Controller
             foreach ($models as $name => $class) {
                 $data[strtolower($name) . 'Count'] = $class::count();
                 $data[strtolower($name) . 'LastUpdated'] = $class::latest()->first()->updated_at ?? now();
+                $data[strtolower($name) . 'Data'] = $class::all();
+                $data['userItemStatusData'] = Auth::user()->itemStatus;
+                $data['items'] = Item::all();
+                $data['rooms'] = Room::all();
+                $data['floors'] = Floor::all();
+                $data['status'] = Status::all();
+                $data['itemStatus'] = ItemStatus::all();
+                $data['teachers'] = User::all();
             }
             return $data;
         });

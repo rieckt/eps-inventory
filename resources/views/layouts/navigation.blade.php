@@ -54,10 +54,6 @@
                             <i class="fas fa-tags me-2"></i> {{ __('Category') }}
                         </x-dropdown-link>
 
-                        <x-dropdown-link :href="route('teacher.index')" :active="request()->routeIs('teacher.*')">
-                            <i class="fas fa-chalkboard-teacher me-2"></i> {{ __('Teacher') }}
-                        </x-dropdown-link>
-
                         <x-dropdown-link :href="route('itemStatus.index')" :active="request()->routeIs('itemStatus.*')">
                             <i class="fas fa-user-graduate me-2"></i> {{ __('Item Status') }}
                         </x-dropdown-link>

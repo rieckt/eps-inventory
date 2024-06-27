@@ -21,7 +21,7 @@ class UpdateItemStatusRequest extends FormRequest
             'time' => ['required', 'date_format:H:i'],
             'description' => ['required', 'string'],
             'room_id' => ['required', 'integer', 'exists:room,id'],
-            'lehrer_id' => ['required', 'integer', 'exists:teacher,id'],
+            'teacher_id' => ['required', 'integer', 'exists:users,id'],
             'status_id' => ['required', 'integer', 'exists:status,id'],
         ];
     }

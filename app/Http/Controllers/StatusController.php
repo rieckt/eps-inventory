@@ -29,7 +29,8 @@ class StatusController extends Controller
      */
     public function create()
     {
-        return view('status.create');
+        $status = new Status();
+        return view('status.create', compact('status'));
     }
 
     /**

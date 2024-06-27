@@ -16,7 +16,7 @@ class StoreRoomRequest extends FormRequest
     {
         return [
             'name' => 'required|string|max:255',
-            'floor_id' => 'required|exists:floors,id',
+            'floor_id' => 'required|exists:floor,id',
         ];
     }
 }

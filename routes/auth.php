@@ -68,7 +68,6 @@ Route::middleware('auth')->group(function () {
         'room' => RoomController::class,
         'floor' => FloorController::class,
         'category' => CategoryController::class,
-        'teacher' => TeacherController::class,
         'itemStatus' => ItemStatusController::class,
         'status' => StatusController::class,
     ]);

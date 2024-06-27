@@ -8,7 +8,7 @@ use App\Http\Requests\UpdateItemStatusRequest;
 use App\Http\Requests\StoreItemStatusRequest;
 
 use App\Models\Room;
-use App\Models\Teacher;
+use App\Models\User;
 use App\Models\Status;
 use App\Models\Item;
 
@@ -36,7 +36,7 @@ class ItemStatusController extends Controller
     public function create(ItemStatus $itemStatus)
     {
         $rooms = $this->getModels(Room::class);
-        $teachers = $this->getModels(Teacher::class);
+        $teachers = $this->getModels(User::class);
         $statuses = $this->getModels(Status::class);
         $items = $this->getModels(Item::class);
         return view('itemStatus.create', compact('itemStatus', 'rooms', 'teachers', 'statuses', 'items'));
@@ -64,7 +64,7 @@ class ItemStatusController extends Controller
     public function edit(ItemStatus $itemStatus)
     {
         $rooms = $this->getModels(Room::class);
-        $teachers = $this->getModels(Teacher::class);
+        $teachers = $this->getModels(User::class);
         $statuses = $this->getModels(Status::class);
         $items = $this->getModels(Item::class);
         return view('itemStatus.edit', compact('itemStatus', 'rooms', 'teachers', 'statuses', 'items'));
